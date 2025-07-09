@@ -5,6 +5,10 @@ import './App.css'*/
 
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
+import MyList from './MyList.jsx'
+import Card from './Card.jsx'
+import AuthForm from './AuthForm.jsx';
+
 
 
 function App() {
@@ -38,8 +42,11 @@ function App() {
 
   return (
     <>
-      <Header />
-      <Footer />
+      <AuthForm />
+      {/* <Header />
+      <MyList />
+      <Card />
+      <Footer /> */}
     </>
 
   )
