@@ -43,10 +43,10 @@ function App() {
   return (
     <>
       <AuthForm />
-      {/* <Header />
+      <Header />
       <MyList />
       <Card />
-      <Footer /> */}
+      <Footer />
     </>
 
   )

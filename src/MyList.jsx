@@ -1,10 +1,10 @@
 function MyList() {
 
-    const item1 = "Sliders";
-    const item2 = "Moisturizer";
-    const item3 = "Haircut";
-    const item4 = "Sunscreen";
-    const item5 = "Anti-Perspirant";
+    const item1 = "1";
+    const item2 = "2";
+    const item3 = "3";
+    const item4 = "4";
+    const item5 = "5";
 
     return (
         <ul>
@@ -14,6 +14,7 @@ function MyList() {
             <li>{item3}</li>
             <li>{item4}</li>
             <li>{item5}</li>
+            <li>-----------</li>
         </ul>
     )
 
