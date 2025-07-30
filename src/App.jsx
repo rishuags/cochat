@@ -36,6 +36,8 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase';
 import AuthForm from './AuthForm.jsx';
+import Student from './Student.jsx';
+import ChatRoom from './ChatRoom.jsx';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -65,12 +67,17 @@ function App() {
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">CoChat</h1>
-        <button onClick={handleLogout} className="text-sm text-red-500 underline">
+        <button onClick={handleLogout} className="text-sm text-magenta-500 underline">
           Logout
         </button>
       </div>
-      <p>Welcome, {user.email} 👋 (verified)</p>
-      {/* Chat components go here */}
+      <>
+        <Student name="A" age={20} isStudent={true} />
+        <Student name="B" age={30} isStudent={false} />
+        <Student name="C" age={40} isStudent={false} />
+        <Student name="D" age={50} isStudent={false} />
+        <ChatRoom />
+      </>
     </div>
   );
 }
