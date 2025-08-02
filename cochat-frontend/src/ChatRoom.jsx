@@ -8,12 +8,15 @@ import {
     limitToLast
 } from "firebase/database";
 
+import { useApiKey } from "./context/ApiKeyContext";
+
 export default function ChatRoom() {
 
-    console.log("ChatRoom component is mounted!");
+    //console.log("ChatRoom component is mounted!");
 
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+    const { apiKey } = useApiKey();
 
     useEffect(() => {
         const messagesRef = query(ref(db, "messages"), limitToLast(50));
@@ -41,12 +44,88 @@ export default function ChatRoom() {
 
     const handleSend = async (e) => {
         e.preventDefault();
-        if (!newMessage.trim() || sending) return;
+        const trimmed = newMessage.trim();
+        if (!trimmed || sending) return;
 
         setSending(true); // prevent duplicates
 
-        const msgRef = ref(db, "messages");
+        // If GPT message
+        if (trimmed.startsWith("/gpt")) {
+            if (!apiKey) {
+                alert("Please enter your openAI Key First");
+                return;
+            }
 
+            // Store gpt message in firebase rtdb
+
+            const msgRef = ref(db, "messages");
+            try {
+                console.log("Trying to send:", trimmed);
+                await push(msgRef, {
+                    text: trimmed,
+                    sender: auth.currentUser.email,
+                    timestamp: Date.now(),
+                });
+                console.log("Message sent!");
+            } catch (error) {
+                console.error("Error sending message:", error);
+            }
+
+            // Build GPT context
+
+            const contextMessages = messages
+                .filter((msg) => {
+                    const isPrivate = msg.text.startsWith("/priv");
+                    return !isPrivate;
+                })
+                .map((msg) => ({
+                    role: msg.sender === "GPT" ? "assistant" : "user",
+                    content: msg.text,
+                }));
+
+            // Add latest /gpt prompt as the final user message
+
+            contextMessages.push({
+                role: "user",
+                content: trimmed.replace("/gpt", "").trim(),
+            });
+
+            console.log("Trying to Prompt: ", contextMessages)
+
+            try {
+                const res = await fetch("http://localhost:3000/api/gpt", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ apiKey, messages: contextMessages }),
+                });
+
+                const data = await res.json();
+
+                if (data.error || !data.reply) {
+                    console.error("GPT error:", data.error || "No Reply");
+                }
+
+                // Push GPT reply to firebase
+                console.log("Trying to send:", data.reply.content);
+                const msgRef = ref(db, "messages");
+                await push(msgRef, {
+                    text: data.reply.content,
+                    sender: "GPT",
+                    timestamp: Date.now(),
+                });
+                console.log("Message Sent!");
+            } catch (err) {
+                console.error("Error contacting GPT API:", err);
+            }
+
+            setNewMessage("");
+            setSending(false);
+            return;
+
+        }
+
+        // Else Normal Message 
+        const msgRef = ref(db, "messages");
         try {
             console.log("Trying to send:", newMessage);
             await push(msgRef, {
