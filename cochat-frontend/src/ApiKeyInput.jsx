@@ -3,7 +3,7 @@ import { useApiKey } from "./context/ApiKeyContext";
 export function ApiKeyInput() {
     const { apiKey, setApiKey } = useApiKey();
 
-    // console.log(apiKey);
+    // console.log(apiKey); Do no uncomment !!! Security Breach
 
     return (
         <div className="p-4 bg-gray-100 border rounded mb-4">
