@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase';
 import AuthForm from './components/AuthForm.jsx';
-import Student from './Student.jsx';
 import ChatRoom from './components/ChatRoom.jsx';
 import { ApiKeyProvider } from './context/ApiKeyContext.jsx';
 import { ApiKeyInput } from './components/ApiKeyInput.jsx';
@@ -42,10 +41,6 @@ function App() {
         </button>
       </div>
       <ApiKeyProvider>
-        {/* <Student name="A" age={20} isStudent={true} />
-        <Student name="B" age={30} isStudent={false} />
-        <Student name="C" age={40} isStudent={false} />
-        <Student name="D" age={50} isStudent={false} /> */}
         <ApiKeyInput />
         <ChatRoom />
       </ApiKeyProvider>
