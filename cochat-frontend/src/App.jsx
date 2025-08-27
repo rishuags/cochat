@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase';
-import AuthForm from './AuthForm.jsx';
+import AuthForm from './components/AuthForm.jsx';
 import Student from './Student.jsx';
-import ChatRoom from './ChatRoom.jsx';
+import ChatRoom from './components/ChatRoom.jsx';
 import { ApiKeyProvider } from './context/ApiKeyContext.jsx';
-import { ApiKeyInput } from './ApiKeyInput.jsx';
+import { ApiKeyInput } from './components/ApiKeyInput.jsx';
 
 function App() {
   const [user, setUser] = useState(null);

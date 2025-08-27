@@ -1,4 +1,4 @@
-import { useApiKey } from "./context/ApiKeyContext";
+import { useApiKey } from "../context/ApiKeyContext";
 
 export function ApiKeyInput() {
     const { apiKey, setApiKey } = useApiKey();

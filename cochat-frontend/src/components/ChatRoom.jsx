@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { db, auth } from "./firebase";
+import { db, auth } from "../firebase";
 import {
     ref,
     push,
@@ -8,7 +8,7 @@ import {
     limitToLast
 } from "firebase/database";
 
-import { useApiKey } from "./context/ApiKeyContext";
+import { useApiKey } from "../context/ApiKeyContext";
 
 export default function ChatRoom() {
 
