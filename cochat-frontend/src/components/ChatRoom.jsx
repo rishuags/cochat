@@ -93,7 +93,9 @@ export default function ChatRoom() {
             console.log("Trying to Prompt: ", contextMessages)
 
             try {
-                const res = await fetch("https://cochat-back.onrender.com/api/gpt", {
+                const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+                const res = await fetch(`${BACKEND_URL}/api/gpt`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ apiKey, messages: contextMessages }),

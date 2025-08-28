@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 
 app.use(cors({
-    origin: "https://cochat-front.vercel.app", // or the actual frontend URL like "https://cochat-frontend.vercel.app" or *
+    origin: "http://localhost:5173/", // or frontend URL ""https://cochat-front.vercel.app"" or "http://localhost:5173/"
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
