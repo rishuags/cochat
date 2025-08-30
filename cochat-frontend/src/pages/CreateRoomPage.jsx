@@ -1,0 +1,79 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { db, auth } from "../firebase";
+import { ref, set } from "firebase/database";
+import { v4 as uuidv4 } from "uuid";
+
+
+export default function CreateRoomPage() {
+    const [roomName, setRoomName] = useState("");
+    const [joinKey, setJoinKey] = useState("");
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+
+
+    const handleCreate = async (e) => {
+        e.preventDefault();
+        setError("");
+
+        if (!roomName.trim() || !joinKey.trim()) {
+            setError("Room name and join key are required.");
+            return;
+        }
+
+        const roomId = uuidv4();
+
+        const roomData = {
+            name: roomName.trim(),
+            joinKey: joinKey.trim(),
+            owner: auth.currentUser.email,
+            createdAt: Date.now(),
+            // members: {
+            //     [auth.currentUser.uid]: {
+            //         status: "approved"
+            //     }
+            // }
+        };
+
+        try {
+            await set(ref(db, `rooms/${roomId}`), roomData);
+            navigate(`/room/${roomId}`);
+        } catch (err) {
+            console.error("Error creating room:", err);
+            setError("Failed to create room. Try again.");
+        }
+    };
+
+
+    return (
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+            <h2 className="text-2xl font-bold mb-4">Create a Room</h2>
+            {error && <p className="text-red-500 mb-2">{error}</p>}
+
+            <form onSubmit={handleCreate} className="flex flex-col gap-4">
+                <input
+                    type="text"
+                    placeholder="Room Name"
+                    value={roomName}
+                    onChange={(e) => setRoomName(e.target.value)}
+                    className="p-2 border rounded"
+                />
+                <input
+                    type="password"
+                    placeholder="Join Key"
+                    value={joinKey}
+                    onChange={(e) => setJoinKey(e.target.value)}
+                    className="p-2 border rounded"
+                />
+                <button
+                    type="submit"
+                    className="bg-blue-600 text-white px-4 py-2 rounded"
+                >
+                    Create Room
+                </button>
+            </form>
+        </div>
+    );
+
+}
