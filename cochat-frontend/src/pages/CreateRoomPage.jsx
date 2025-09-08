@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function CreateRoomPage() {
     const [roomName, setRoomName] = useState("");
     const [joinKey, setJoinKey] = useState("");
+    const [apiKey, setApiKey] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -17,8 +18,8 @@ export default function CreateRoomPage() {
         e.preventDefault();
         setError("");
 
-        if (!roomName.trim() || !joinKey.trim()) {
-            setError("Room name and join key are required.");
+        if (!roomName.trim() || !joinKey.trim() || !apiKey.trim()) {
+            setError("Room name and join key and api key are required.");
             return;
         }
 
@@ -38,7 +39,7 @@ export default function CreateRoomPage() {
 
         try {
             await set(ref(db, `rooms/${roomId}`), roomData);
-            navigate(`/room/${roomId}`);
+            navigate(`/room/${roomId}`, { state: { apiKey } });
         } catch (err) {
             console.error("Error creating room:", err);
             setError("Failed to create room. Try again.");
@@ -64,6 +65,13 @@ export default function CreateRoomPage() {
                     placeholder="Join Key"
                     value={joinKey}
                     onChange={(e) => setJoinKey(e.target.value)}
+                    className="p-2 border rounded"
+                />
+                <input
+                    type="password"
+                    placeholder="Api Key"
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
                     className="p-2 border rounded"
                 />
                 <button

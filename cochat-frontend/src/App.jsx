@@ -16,7 +16,7 @@ import { ApiKeyInput } from './components/ApiKeyInput.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import CreateRoomPage from './pages/CreateRoomPage.jsx';
-
+import RoomPage from './pages/RoomPage.jsx';
 
 // React Context
 import { ApiKeyProvider } from './context/ApiKeyContext.jsx';
@@ -75,7 +75,7 @@ function App() {
       <Route path="/dashboard" element={user ? <DashboardPage /> : <Navigate to="/login" />} />
 
       {/* Room page – also protected by auth check */}
-      {/* <Route path="/room/:roomId" element={user ? <RoomPage /> : <Navigate to="/login" />} /> */}
+      <Route path="/room/:roomId" element={user ? <RoomPage /> : <Navigate to="/login" />} />
 
       <Route path="/create-room" element={user ? <CreateRoomPage /> : <Navigate to="/login" />} />
 

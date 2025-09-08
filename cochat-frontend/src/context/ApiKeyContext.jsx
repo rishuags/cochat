@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from "react";
 const ApiKeyContext = createContext(); //Create Context
 
 //Provider Component
-export function ApiKeyProvider({ children }) {
-    const [apiKey, setApiKey] = useState("");
+export function ApiKeyProvider({ children, initialKey = "" }) {
+    const [apiKey, setApiKey] = useState(initialKey);
 
     return (
         <ApiKeyContext.Provider value={{ apiKey, setApiKey }}>

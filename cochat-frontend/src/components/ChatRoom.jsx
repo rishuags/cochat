@@ -10,7 +10,7 @@ import {
 
 import { useApiKey } from "../context/ApiKeyContext";
 
-export default function ChatRoom() {
+export default function ChatRoom({ roomId }) {
 
     //console.log("ChatRoom component is mounted!");
 
@@ -18,10 +18,13 @@ export default function ChatRoom() {
     const [newMessage, setNewMessage] = useState("");
     const { apiKey } = useApiKey();
 
-    useEffect(() => {
-        const messagesRef = query(ref(db, "messages"), limitToLast(50));
 
-        onValue(messagesRef, (snapshot) => {
+    useEffect(() => {
+        if (!roomId) return;
+
+        const messagesRef = query(ref(db, `rooms/${roomId}/messages`), limitToLast(50));
+
+        const unsubscribe = onValue(messagesRef, (snapshot) => {
             const data = snapshot.val();
             if (!data) {
                 setMessages([]);
@@ -38,7 +41,8 @@ export default function ChatRoom() {
         });
 
         // No cleanup needed for now; onValue doesn't return anything
-    }, []);
+        return () => unsubscribe();
+    }, [roomId]);
 
     const [sending, setSending] = useState(false);
 
@@ -49,16 +53,18 @@ export default function ChatRoom() {
 
         setSending(true); // prevent duplicates
 
+
         // If GPT message
         if (trimmed.startsWith("/gpt")) {
             if (!apiKey) {
-                alert("Please enter your openAI Key First");
+                alert('Please enter your openAI Key First');
+                setSending(false);
                 return;
             }
 
             // Store gpt message in firebase rtdb
+            const msgRef = ref(db, `rooms/${roomId}/messages`);
 
-            const msgRef = ref(db, "messages");
             try {
                 console.log("Trying to send:", trimmed);
                 await push(msgRef, {
@@ -94,6 +100,7 @@ export default function ChatRoom() {
 
             try {
                 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+                console.log("Using Backend URL: ", BACKEND_URL);
 
                 const res = await fetch(`${BACKEND_URL}/api/gpt`, {
                     method: "POST",
@@ -109,7 +116,7 @@ export default function ChatRoom() {
 
                 // Push GPT reply to firebase
                 console.log("Trying to send:", data.reply.content);
-                const msgRef = ref(db, "messages");
+                const msgRef = ref(db, `rooms/${roomId}/messages`);
                 await push(msgRef, {
                     text: data.reply.content,
                     sender: "GPT",
@@ -127,7 +134,7 @@ export default function ChatRoom() {
         }
 
         // Else Normal Message 
-        const msgRef = ref(db, "messages");
+        const msgRef = ref(db, `rooms/${roomId}/messages`);
         try {
             console.log("Trying to send:", newMessage);
             await push(msgRef, {

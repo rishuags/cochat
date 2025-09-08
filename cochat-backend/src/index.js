@@ -1,12 +1,15 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const corsOrigin = process.env.CLIENT_ORIGIN;
 
 
+console.log("Allowed origin from env:", corsOrigin);
 app.use(cors({
-    origin: "http://localhost:5173/", // or frontend URL ""https://cochat-front.vercel.app"" or "http://localhost:5173/"
+    origin: corsOrigin,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
