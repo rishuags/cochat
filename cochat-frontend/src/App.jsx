@@ -17,6 +17,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import CreateRoomPage from './pages/CreateRoomPage.jsx';
 import RoomPage from './pages/RoomPage.jsx';
+import JoinRoomPage from './pages/JoinRoomPage.jsx';
 
 // React Context
 import { ApiKeyProvider } from './context/ApiKeyContext.jsx';
@@ -78,6 +79,8 @@ function App() {
       <Route path="/room/:roomId" element={user ? <RoomPage /> : <Navigate to="/login" />} />
 
       <Route path="/create-room" element={user ? <CreateRoomPage /> : <Navigate to="/login" />} />
+
+      <Route path="/join-room" element={user ? <JoinRoomPage /> : <Navigate to="/login" />} />
 
       {/* Fallback – if route doesn't match, send user to dashboard if logged in, else login */}
       <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
