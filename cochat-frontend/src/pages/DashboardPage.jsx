@@ -39,9 +39,9 @@ export default function DashboardPage() {
 
                 <button
                     onClick={() => navigate("/my-rooms")}
-                    className="w-full bg-gray-500 text-white py-2 px-4 rounded"
+                    className="w-full bg-purple-500 text-white py-2 px-4 rounded"
                 >
-                    My Rooms (coming soon)
+                    My Rooms
                 </button>
             </div>
         </div>
