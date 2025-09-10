@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { db, auth } from "../firebase";
 import { ref, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
+import BackToDashboardButton from "../components/utilityUI/BackToDashboardButton";
 
 
 export default function CreateRoomPage() {
@@ -49,6 +50,7 @@ export default function CreateRoomPage() {
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+
             <h2 className="text-2xl font-bold mb-4">Create a Room</h2>
             {error && <p className="text-red-500 mb-2">{error}</p>}
 
@@ -81,7 +83,12 @@ export default function CreateRoomPage() {
                     Create Room
                 </button>
             </form>
+
+
+            <BackToDashboardButton />
         </div>
+
+
     );
 
 }

@@ -6,6 +6,7 @@ import {
     get,
     set,
 } from "firebase/database";
+import BackToDashboardButton from "../components/utilityUI/BackToDashboardButton";
 
 export default function JoinRoomPage() {
     const [roomId, setRoomId] = useState("");
@@ -71,6 +72,7 @@ export default function JoinRoomPage() {
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+
             <h2 className="text-2xl font-bold mb-4">Join a Room</h2>
 
             {error && <p className="text-red-500 mb-2">{error}</p>}
@@ -97,6 +99,7 @@ export default function JoinRoomPage() {
                     Join Room
                 </button>
             </form>
+            <BackToDashboardButton />
         </div>
     );
 }

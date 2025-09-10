@@ -12,6 +12,7 @@ export default function DashboardPage() {
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow space-y-4">
+
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold">CoChat Dashboard</h1>
                 <button
@@ -20,6 +21,7 @@ export default function DashboardPage() {
                 >
                     Logout
                 </button>
+
             </div>
 
             <div className="space-y-2 mt-6">

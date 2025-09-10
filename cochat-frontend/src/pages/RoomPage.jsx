@@ -5,7 +5,10 @@ import { ref, get } from "firebase/database";
 import { db } from "../firebase";
 import { ApiKeyProvider } from "../context/ApiKeyContext";
 import ChatRoom from "../components/ChatRoom";
-
+import CopyToClipboard from "../components/utilityUI/CopyToClipboard";
+import LogoutButton from "../components/utilityUI/LogoutButton";
+import BackToMyRoomsButton from "../components/utilityUI/BackToMyRoomsButton";
+import BackToDashboardButton from "../components/utilityUI/BackToDashboardButton";
 export default function RoomPage() {
     const { roomId } = useParams();
     const [roomData, setRoomData] = useState(null);
@@ -43,10 +46,22 @@ export default function RoomPage() {
 
     return (
         <div className="p-4">
+
             <h2 className="text-xl font-bold mb-4">Room: {roomData.name}</h2>
+
+            <div className="relative"> <LogoutButton /> </div>
+
+            <p style={{ fontSize: "0.8rem", color: "#888" }}>
+                Room ID: <code>{roomId}</code>
+                <CopyToClipboard textToCopy={roomId} />
+            </p>
             <ApiKeyProvider initialKey={apiKey}>
                 <ChatRoom roomId={roomId} />
             </ApiKeyProvider>
+
+            <div> <BackToMyRoomsButton />  </div>
+            <div> <BackToDashboardButton /> </div>
+
         </div>
     );
 }

@@ -4,7 +4,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { get, child } from "firebase/database";
-
+import CopyToClipboard from "../components/utilityUI/CopyToClipboard";
+import BackToDashboardButton from "../components/utilityUI/BackToDashboardButton";
 function MyRoomsPage() {
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -77,6 +78,7 @@ function MyRoomsPage() {
 
     return (
         <div className="p-8">
+
             <h1 className="text-3xl font-bold mb-6 text-gray-800">My Rooms</h1>
 
             {rooms.length === 0 ? (
@@ -92,6 +94,10 @@ function MyRoomsPage() {
                             <p className="text-gray-600 mb-1">Created: {formatDate(room.createdAt)}</p>
                             <p className="text-gray-600 mb-4">
                                 Role: <span className="font-bold">{room.role}</span>
+                            </p>
+                            <p style={{ fontSize: "0.8rem", color: "#888" }}>
+                                Room ID: <code>{room.id}</code>
+                                <CopyToClipboard textToCopy={room.id} />
                             </p>
 
                             <button
@@ -118,6 +124,7 @@ function MyRoomsPage() {
                     ))}
                 </div>
             )}
+            <BackToDashboardButton />
         </div>
     );
 }
