@@ -57,6 +57,7 @@ function MyRoomsPage() {
                             name: room.name,
                             createdAt: room.createdAt,
                             role: isOwner ? "Owner" : "Member",
+                            ownerEmail: room.owner,
                             members: room.members || {}
                         });
                     }
@@ -92,28 +93,31 @@ function MyRoomsPage() {
                         >
                             <h2 className="text-xl font-semibold text-gray-900 mb-2">{room.name}</h2>
                             <p className="text-gray-600 mb-1">Created: {formatDate(room.createdAt)}</p>
-                            <p className="text-gray-600 mb-4">
-                                Role: <span className="font-bold">{room.role}</span>
-                            </p>
+                            <p className="text-gray-600 mb-1"> Role: <span className="font-bold">{room.role}</span> </p>
+                            <p className="text-gray-600 mb-1">Owner: <strong>{room.ownerEmail}</strong></p>
+
                             <p style={{ fontSize: "0.8rem", color: "#888" }}>
                                 Room ID: <code>{room.id}</code>
                                 <CopyToClipboard textToCopy={room.id} />
                             </p>
 
-                            <button
-                                onClick={() => setOpenMembers(openMembers === room.id ? null : room.id)}
-                                className="text-sm text-blue-600 hover:underline mb-2"
-                            >
-                                {openMembers === room.id ? "Hide Members" : "Show Members"}
-                            </button>
+                            <div className="mb-2">
+                                <button
+                                    onClick={() => setOpenMembers(openMembers === room.id ? null : room.id)}
+                                    className="text-sm text-blue-600 hover:underline"
+                                >
+                                    {openMembers === room.id ? "Hide Members" : "Show Members"}
+                                </button>
 
-                            {openMembers === room.id && room.members && (
-                                <ul className="text-sm text-gray-700 mb-2">
-                                    {Object.values(room.members).map((member, idx) => (
-                                        <li key={idx} className="ml-2 list-disc">{member.email}</li>
-                                    ))}
-                                </ul>
-                            )}
+                                {openMembers === room.id && room.members && (
+                                    <ul className="text-sm text-gray-700 mt-2">
+                                        {Object.values(room.members).map((member, idx) => (
+                                            <li key={idx} className="ml-2 list-disc">{member.email}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+
                             <button
                                 onClick={() => navigate(`/room/${room.id}`)}
                                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-150"
