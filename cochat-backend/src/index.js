@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config({ path: '../.env' });
 const express = require("express");
 const cors = require("cors");
 
@@ -6,6 +6,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const corsOrigin = process.env.CLIENT_ORIGIN;
 
+
+// console.log("DB ENV:", process.env.DATABASE_URL);
+
+// const { Pool } = require("pg");
+
+// const pool = new Pool({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: { rejectUnauthorized: false }
+// });
+
+
+
+// app.get("/test-db", async (req, res) => {
+//     try {
+//         const result = await pool.query("SELECT NOW()");
+//         res.json({ time: result.rows[0] });
+//     } catch (err) {
+//         console.error("DB connection failed:", err);
+//         res.status(500).send("Nope.");
+//     }
+// });
 
 console.log("Allowed origin from env:", corsOrigin);
 app.use(cors({
