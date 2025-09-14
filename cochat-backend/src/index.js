@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' });
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
@@ -8,25 +8,38 @@ const corsOrigin = process.env.CLIENT_ORIGIN;
 
 
 // console.log("DB ENV:", process.env.DATABASE_URL);
+console.log("PORT:", PORT);
 
-// const { Pool } = require("pg");
+const { Pool } = require("pg");
 
-// const pool = new Pool({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: { rejectUnauthorized: false }
-// });
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
 
 
 
-// app.get("/test-db", async (req, res) => {
-//     try {
-//         const result = await pool.query("SELECT NOW()");
-//         res.json({ time: result.rows[0] });
-//     } catch (err) {
-//         console.error("DB connection failed:", err);
-//         res.status(500).send("Nope.");
-//     }
-// });
+app.get("/test-db", async (req, res) => {
+    try {
+        // const result = await pool.query("SELECT NOW()");
+        // res.json({ time: result.rows[0] });
+        console.log("Trying to connect to DB...");
+        const client = await pool.connect();
+        console.log("✅ Connected!");
+        const result = await client.query("SELECT NOW()");
+        console.log("Server time is:", result.rows[0]);
+
+        res.json({
+            message: "DB connected ✅",
+            serverTime: result.rows[0].now
+        });
+
+        client.release();
+    } catch (err) {
+        console.error("DB connection failed:", err);
+        res.status(500).send("Nope.");
+    }
+});
 
 console.log("Allowed origin from env:", corsOrigin);
 app.use(cors({
