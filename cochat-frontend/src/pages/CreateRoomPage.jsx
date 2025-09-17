@@ -40,7 +40,31 @@ export default function CreateRoomPage() {
 
         try {
             await set(ref(db, `rooms/${roomId}`), roomData);
-            navigate(`/room/${roomId}`, { state: { apiKey } });
+            /** */
+            try {
+                const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+                const response = await fetch(`${BACKEND_URL}/api/store-key`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        room_id: roomId,
+                        api_key: apiKey,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to store API key securely.");
+                }
+
+                console.log("🔐 API key stored securely in Supabase");
+            } catch (err) {
+                console.error("❌ Error storing API key:", err);
+                setError("Room created, but failed to securely store API key.");
+            }
+            /** */
+            // navigate(`/room/${roomId}`, { state: { apiKey } });
+            navigate(`/room/${roomId}`);
         } catch (err) {
             console.error("Error creating room:", err);
             setError("Failed to create room. Try again.");

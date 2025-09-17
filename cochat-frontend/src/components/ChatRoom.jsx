@@ -8,7 +8,7 @@ import {
     limitToLast
 } from "firebase/database";
 
-import { useApiKey } from "../context/ApiKeyContext";
+// import { useApiKey } from "../context/ApiKeyContext";
 
 export default function ChatRoom({ roomId }) {
 
@@ -16,7 +16,7 @@ export default function ChatRoom({ roomId }) {
 
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
-    const { apiKey } = useApiKey();
+    // const { apiKey } = useApiKey();
 
 
     useEffect(() => {
@@ -56,11 +56,13 @@ export default function ChatRoom({ roomId }) {
 
         // If GPT message
         if (trimmed.startsWith("/gpt")) {
-            if (!apiKey) {
-                alert('Please enter your openAI Key First');
-                setSending(false);
-                return;
-            }
+            /** */
+            // if (!apiKey) {
+            //     alert('Please enter your openAI Key First');
+            //     setSending(false);
+            //     return;
+            // }
+            /** */
 
             // Store gpt message in firebase rtdb
             const msgRef = ref(db, `rooms/${roomId}/messages`);
@@ -102,10 +104,21 @@ export default function ChatRoom({ roomId }) {
                 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                 console.log("Using Backend URL: ", BACKEND_URL);
 
-                const res = await fetch(`${BACKEND_URL}/api/gpt`, {
+                /** */
+                // const res = await fetch(`${BACKEND_URL}/api/gpt`, {
+                //     method: "POST",
+                //     headers: { "Content-Type": "application/json" },
+                //     body: JSON.stringify({ apiKey, messages: contextMessages }),
+                // });
+                /** */
+
+                const res = await fetch(`${BACKEND_URL}/api/gpt-room`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ apiKey, messages: contextMessages }),
+                    body: JSON.stringify({
+                        room_id: roomId,
+                        messages: contextMessages,
+                    }),
                 });
 
                 const data = await res.json();

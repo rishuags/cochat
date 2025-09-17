@@ -3,7 +3,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ref, get } from "firebase/database";
 import { db } from "../firebase";
-import { ApiKeyProvider } from "../context/ApiKeyContext";
 import ChatRoom from "../components/ChatRoom";
 import CopyToClipboard from "../components/utilityUI/CopyToClipboard";
 import LogoutButton from "../components/utilityUI/LogoutButton";
@@ -15,7 +14,7 @@ export default function RoomPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const location = useLocation();
-    const apiKey = location.state?.apiKey;
+    // const apiKey = location.state?.apiKey;
 
     useEffect(() => {
         if (!roomId) return;
@@ -55,9 +54,9 @@ export default function RoomPage() {
                 Room ID: <code>{roomId}</code>
                 <CopyToClipboard textToCopy={roomId} />
             </p>
-            <ApiKeyProvider initialKey={apiKey}>
-                <ChatRoom roomId={roomId} />
-            </ApiKeyProvider>
+
+            <ChatRoom roomId={roomId} />
+
 
             <div> <BackToMyRoomsButton />  </div>
             <div> <BackToDashboardButton /> </div>
