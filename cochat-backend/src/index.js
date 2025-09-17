@@ -53,9 +53,13 @@ app.get("/test-db", async (req, res) => {
 const gptRoutes = require("./routes/gptRouter");
 app.use("/api/gpt", gptRoutes);
 
-//Route to store key in database
+// Route to store key in database
 const storeKeyRoutes = require("./routes/storeKey");
 app.use("/api", storeKeyRoutes);
+
+// Route to communicate with GPT within ROOM
+const gptRoomRouter = require("./routes/gptRoom");
+app.use("/api", gptRoomRouter);
 
 
 // Route to see all keys in database

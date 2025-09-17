@@ -1,6 +1,13 @@
 // Logic for saving/retrieving encrypted keys
 
 const { insertApiKey, getAllEncryptedKeys } = require("../db/queries");
+const { encrypt } = require("../utils/encryption");
+const secret = process.env.ENCRYPTION_SECRET;
+
+if (!secret) {
+    console.error("ENCRYPTION_SECRET is not set in environment variables.");
+    return res.status(500).json({ error: "Encryption secret is not configured." });
+}
 
 const storeApiKey = async (req, res) => {
     const { room_id, api_key } = req.body;
@@ -10,7 +17,8 @@ const storeApiKey = async (req, res) => {
     }
 
     try {
-        await insertApiKey(room_id, api_key);
+        const encryptedKey = encrypt(api_key, secret);
+        await insertApiKey(room_id, encryptedKey);
         res.status(201).json({ message: "API key stored successfully." });
     } catch (error) {
         console.error("Failed to store API key:", error);

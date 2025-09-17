@@ -21,6 +21,14 @@ const getAllEncryptedKeys = async () => {
     return result;
 };
 
+const getEncryptedKeyByRoomId = async (room_id) => {
+    const query = `
+        SELECT encrypted_key FROM api_keys
+        WHERE room_id = $1
+    `;
+    return await pool.query(query, [room_id]);
+};
 
 
-module.exports = { insertApiKey, getAllEncryptedKeys };
+
+module.exports = { insertApiKey, getAllEncryptedKeys, getEncryptedKeyByRoomId };
