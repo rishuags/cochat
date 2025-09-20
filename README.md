@@ -17,6 +17,8 @@ CoChat lets multiple users join shared chatrooms and interact with GPT using the
 
 ---
 
+---
+
 ### 🛠️ How to Use
 
 1. **Sign Up & Verify**
@@ -29,13 +31,28 @@ CoChat lets multiple users join shared chatrooms and interact with GPT using the
    - The key is encrypted and stored **server-side**.
 
 3. **Create or Join a Room**
-   - You can create a new room or join one with a room ID + join key.
+   - You can create a new room or join one with a Room ID + Join Key.
 
 4. **Start Chatting**
    - Messages are shared in real time.
    - GPT replies with full conversation context.
 
 > 🔐 Each user's GPT access is private and secure — API keys are never exposed.
+
+---
+
+### 💬 Message Commands
+
+| Command    |  Description                                                                |
+|------------|-----------------------------------------------------------------------------|
+| *(none)*   | Regular message, stored and included in GPT prompt context                  |
+| `/gpt`     | Triggers a GPT response using the full room context so far                  |
+| `/priv`    | Sends a private message **not included** in GPT context (for human eyes only) |
+
+> 💡 Example:
+> ```
+> /gpt What are some good names for a productivity app?
+> ```
 
 
 
