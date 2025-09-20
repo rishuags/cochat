@@ -51,8 +51,9 @@ CoChat lets multiple users join shared chatrooms and interact with GPT using the
 
 > 💡 Example:
 > ```
-> /gpt What are some good names for a productivity app?
+> /gpt Who's the greatest footballer ever? 
 > ```
+> Hint: Messi 🐐
 
 
 
