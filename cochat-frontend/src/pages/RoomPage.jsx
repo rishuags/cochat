@@ -44,11 +44,13 @@ export default function RoomPage() {
     if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
 
     return (
-        <div className="p-4">
+        <div className="p-4 relative">
+            <h2 className="text-xl font-bold mb-2">Room: {roomData.name}</h2>
 
-            <h2 className="text-xl font-bold mb-4">Room: {roomData.name}</h2>
+            <div className="absolute top-4 right-4">
+                <LogoutButton />
+            </div>
 
-            <div className="relative"> <LogoutButton /> </div>
 
             <p style={{ fontSize: "0.8rem", color: "#888" }}>
                 Room ID: <code>{roomId}</code>
@@ -57,10 +59,11 @@ export default function RoomPage() {
 
             <ChatRoom roomId={roomId} />
 
-
             <div> <BackToMyRoomsButton />  </div>
             <div> <BackToDashboardButton /> </div>
 
         </div>
     );
+
+
 }
