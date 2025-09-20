@@ -16,7 +16,9 @@ Navigation           React Router
 Others               UUIDV6, 
 
 
-📐 System Architechure  
+📐 High-Level Architechure Overview
+
+![alt text](IMG_0112.jpeg)
 
 
 
