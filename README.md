@@ -1,6 +1,39 @@
 # 🧠 CoChat — A Collaborative, GPT-Powered Chatroom
 
+![Vercel](https://img.shields.io/badge/Hosted-Vercel-black?logo=vercel)
+![Render](https://img.shields.io/badge/Backend-Render-blue)
+![Supabase](https://img.shields.io/badge/DB-Supabase-green)
+![OpenAI](https://img.shields.io/badge/API-OpenAI-red)
+
 CoChat lets multiple users join shared chatrooms and interact with GPT using their own encrypted API keys — securely and privately
+
+## 🚀 Try It Now
+
+**🔗 Live Demo:** [cochat-front.vercel.app](https://cochat-front.vercel.app/login)
+
+> No setup required — jump in and start chatting with GPT in shared rooms.
+
+---
+
+### 🛠️ How to Use
+
+1. **Sign Up & Verify**
+   - Use your email to sign up.
+   - Click the verification link sent to your inbox.
+   - Log in after verifying.
+
+2. **Enter Your OpenAI API Key**
+   - You’ll be prompted to securely enter your OpenAI key.
+   - The key is encrypted and stored **server-side**.
+
+3. **Create or Join a Room**
+   - You can create a new room or join one with a room ID + join key.
+
+4. **Start Chatting**
+   - Messages are shared in real time.
+   - GPT replies with full conversation context.
+
+> 🔐 Each user's GPT access is private and secure — API keys are never exposed.
 
 
 
@@ -13,6 +46,7 @@ CoChat lets multiple users join shared chatrooms and interact with GPT using the
 - [⚠️ Limitations & Future Improvements](#️-limitations--future-improvements)
 
 
+
 ### 🧱 Tech Stack
 
 | Area        | Technology                                                |
@@ -22,28 +56,42 @@ CoChat lets multiple users join shared chatrooms and interact with GPT using the
 | Auth        | Firebase Authentication                                   |
 | Realtime DB | Firebase Realtime Database                                |
 | Database    | Supabase (PostgreSQL)                                     |
-| Hosting     | Vercel (Frontend), Render (Backend), Supabase (Database) |
+| Hosting     | Vercel (Frontend), Render (Backend), Supabase (Database)  |
 | Encryption  | Node.js crypto module (AES-256)                           |
 | API         | OpenAI                                                    |
 | Routing     | React Router                                              |
-| Utility     | UUIDv6                                                    |
+| Utility     | UUIDv6, pg                                                |
 
 
-## 📐 High-Level Architechure Overview
+## 📐 High-Level Architecture Overview
 
 ![Architecture](IMG_0113.jpeg)
 
 
 ## 📸 Screenshots
 
+Coming soon...
+
 
 ## ✅ Features
 
-- 🔐 End-to-End GPT Requests with Encrypted API Keys  
-- 🧱 Room-Based Chat System (Create/Join/Own Rooms)  
-- 🔄 Realtime Messaging with Firebase  
-- 🧠 GPT Context Building (Prompt history & responses)  
-- 🔐 Authentication + Email Verification (Firebas
+- 🔐 **Secure GPT Requests with Encrypted API Keys**  
+  Each user's OpenAI key is AES-encrypted on the backend before storage and used securely at runtime. 
+
+- 🧱 **Room-Based Chat System**  
+  Create, join, or own persistent chatrooms with others.  
+
+- 🔄 **Realtime Chat Messaging**  
+  Live updates powered by Firebase Realtime Database.  
+
+- 🧠 **Contextual GPT Conversations**  
+  GPT receives prompt history and room context for coherent replies.  
+
+- 🔑 **Encrypted API Key Storage (AES-256)**  
+  Keys are encrypted with Node.js crypto and stored in Supabase securely.  
+
+- 🔐 **Email Verification with Firebase Auth**  
+  Only verified users can log in and access rooms.
 
 
 ## 🤔 Design Decisions
