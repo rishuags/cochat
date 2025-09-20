@@ -1,9 +1,11 @@
 # 🧠 CoChat — A Collaborative, GPT-Powered Chatroom
 
-![Vercel](https://img.shields.io/badge/Hosted-Vercel-black?logo=vercel)
-![Render](https://img.shields.io/badge/Backend-Render-blue)
-![Supabase](https://img.shields.io/badge/DB-Supabase-green)
-![OpenAI](https://img.shields.io/badge/API-OpenAI-red)
+![Vercel](https://img.shields.io/badge/Hosted-Vercel-black?logo=vercel&logoColor=white)
+![Render](https://img.shields.io/badge/Backend-Render-blue?logo=render&logoColor=white)
+![Supabase](https://img.shields.io/badge/DB-Supabase-3ECF8E?logo=supabase&logoColor=white)
+![OpenAI](https://img.shields.io/badge/API-OpenAI-ff4a00?logo=openai&logoColor=white)
+![Firebase Auth](https://img.shields.io/badge/Auth-Firebase-ffca28?logo=firebase&logoColor=black)
+![Firebase RTDB](https://img.shields.io/badge/RTDB-Firebase-ffca28?logo=firebase&logoColor=black)
 
 CoChat lets multiple users join shared chatrooms and interact with GPT using their own encrypted API keys — securely and privately
 
