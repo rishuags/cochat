@@ -23,11 +23,11 @@ CoChat lets multiple users join shared chatrooms and interact with GPT using the
 
 1. **Sign Up & Verify**
    - Use your email to sign up.
-   - Click the verification link sent to your inbox.
+   - Click the verification link sent to your inbox (check spam!).
    - Log in after verifying.
 
 2. **Enter Your OpenAI API Key**
-   - You’ll be prompted to securely enter your OpenAI key.
+   - You’ll be prompted to securely enter your OpenAI key on creating a room.
    - The key is encrypted and stored **server-side**.
 
 3. **Create or Join a Room**
@@ -38,6 +38,20 @@ CoChat lets multiple users join shared chatrooms and interact with GPT using the
    - GPT replies with full conversation context.
 
 > 🔐 Each user's GPT access is private and secure — API keys are never exposed.
+
+### 🔑 Get an OpenAI API Key
+
+You’ll need your own API key to use the GPT feature.
+
+- Get it here: [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
+
+
+### Join a GPT enabled Demo Room 
+   - Login
+   - Click Join Room
+   - Room ID: 0604f97d-fb8e-42f0-a8f7-78d7699bc8f4
+   - Join Key: 123
+   - Use responsibly :)
 
 ---
 
