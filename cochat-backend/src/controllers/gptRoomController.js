@@ -22,13 +22,13 @@ async function handleRoomGPTRequest(req, res) {
             return res.status(404).json({ error: "API key not found for this room." });
         }
 
-        const encryptedKey = result.rows[0].encrypted_key;
+        const encryptedKey = result.rows[0].encryptedKey;
         const apiKey = decrypt(encryptedKey, secret);
 
         const openai = new OpenAI({ apiKey });
 
         const chatCompletion = await openai.chat.completions.create({
-            model: "gpt-4.1-nano-2025-04-14",
+            model: "gpt-4o-mini",
             messages,
             temperature: 0.7,
         });
