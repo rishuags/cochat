@@ -22,7 +22,13 @@ async function handleRoomGPTRequest(req, res) {
             return res.status(404).json({ error: "API key not found for this room." });
         }
 
-        const encryptedKey = result.rows[0].encryptedKey;
+        // FIX: use snake_case column name
+        const encryptedKey = result.rows[0].encrypted_key;
+
+        if (!encryptedKey) {
+            return res.status(500).json({ error: "Encrypted key missing from DB row." });
+        }
+
         const apiKey = decrypt(encryptedKey, secret);
 
         const openai = new OpenAI({ apiKey });
@@ -34,6 +40,7 @@ async function handleRoomGPTRequest(req, res) {
         });
 
         const gptReply = chatCompletion.choices[0].message;
+
         res.status(200).json({ reply: gptReply });
 
     } catch (error) {
